@@ -120,6 +120,8 @@ def info_window(command,student):
                                 listStudents=[]
                                 for line in read:
                                         if line['id#'] == ID.get() or line['name'] == name.get():
+                                                if command == "edit" and line['id#'] == ID.get():
+                                                        continue
                                                 messagebox.showinfo("Student Information System","Record already exists.",parent=infoWindow)
                                                 return
                                         
@@ -173,6 +175,7 @@ def info_window(command,student):
         #Sets the entry fields with the current student info
         if (command == "edit"):
                 ID.insert(0,student['id#'])
+                ID.config(state=DISABLED)
                 name.insert(0,student['name'])
                 course.insert(0,student['course'])
                 year.set(student['year'])
