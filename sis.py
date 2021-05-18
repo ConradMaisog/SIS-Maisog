@@ -175,7 +175,6 @@ def info_window(command,student):
         #Sets the entry fields with the current student info
         if (command == "edit"):
                 ID.insert(0,student['id#'])
-                ID.config(state=DISABLED)
                 name.insert(0,student['name'])
                 course.insert(0,student['course'])
                 year.set(student['year'])
