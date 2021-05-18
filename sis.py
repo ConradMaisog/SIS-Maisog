@@ -1,5 +1,6 @@
 #Author: John Conrad Seg B. Maisog
 from tkinter import *
+from tkinter import messagebox
 import tkinter.font as font
 import csv
 import os
@@ -109,14 +110,27 @@ def info_window(command,student):
         #Function for both adding and editing a student
         #For editing student, saves the current changes to the info, delete the current info and rewrites the file with the new info
         def addStudent():
-                student = [ID.get(),name.get(),course.get(),year.get(),gender.get()]
-                if command == "edit":
-                        deleteStudent(student[0])
-                with open('data.csv','a',newline='') as csv_file:
-                        write = csv.writer(csv_file)
-                        write.writerow(student)
-                infoWindow.destroy()
-                showList()
+                #Guarantees that the input fields are not empty
+                if ID.get()=="" or name.get()=="" or course.get()=="" or year.get()=="" or gender.get()=="":
+                        messagebox.showinfo("Student Information System","Fill in all the fields.",parent=infoWindow)
+                else:
+                        #Checks if an existing record already exist
+                        with open('data.csv','r') as csv_file:
+                                read = csv.DictReader(csv_file)
+                                listStudents=[]
+                                for line in read:
+                                        if line['id#'] == ID.get() or line['name'] == name.get():
+                                                messagebox.showinfo("Student Information System","Record already exists.",parent=infoWindow)
+                                                return
+                                        
+                        student = [ID.get(),name.get(),course.get(),year.get(),gender.get()]
+                        if command == "edit":
+                                deleteStudent(student[0])
+                        with open('data.csv','a',newline='') as csv_file:
+                                write = csv.writer(csv_file)
+                                write.writerow(student)
+                        infoWindow.destroy()
+                        showList()
         #Creates a new window
         infoWindow = Toplevel()
         infoWindow.configure(bg="#fbc681")
