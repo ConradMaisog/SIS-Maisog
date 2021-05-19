@@ -101,7 +101,7 @@ def showList(*args):
                                 edit.pack(side=TOP, padx=5,pady=2)
                         i+=1
         #Frame used to fix scrollbar not activating
-        fixFrame = Frame(myFrame, height=600, width=470)
+        fixFrame = Frame(myFrame, height=1000, width=470)
         fixFrame.grid(row=i,column=0)
         fixFrame.propagate(0)
 
