@@ -114,6 +114,16 @@ def info_window(command,student):
                 if ID.get()=="" or name.get()=="" or course.get()=="" or year.get()=="" or gender.get()=="":
                         messagebox.showinfo("Student Information System","Fill in all the fields.",parent=infoWindow)
                 else:
+                        #Checks ID format
+                        if len(ID.get().split("-")) != 2:
+                                messagebox.showinfo("Student Information System","Invalid ID format(yyyy-nnnn).",parent=infoWindow)
+                                return
+                        if len(ID.get().split("-")[0])!=4 or len(ID.get().split("-")[1])!=4:
+                                messagebox.showinfo("Student Information System","Invalid ID format(yyyy-nnnn).",parent=infoWindow)
+                                return
+                        if ID.get().split("-")[0].isdigit()==False or ID.get().split("-")[1].isdigit()==False:
+                                messagebox.showinfo("Student Information System","Invalid ID format(yyyy-nnnn).",parent=infoWindow)
+                                return
                         #Checks if an existing record already exist
                         with open('data.csv','r') as csv_file:
                                 read = csv.DictReader(csv_file)
@@ -133,6 +143,7 @@ def info_window(command,student):
                                 write.writerow(student)
                         infoWindow.destroy()
                         showList()
+                
         #Creates a new window
         infoWindow = Toplevel()
         infoWindow.configure(bg="#fbc681")
